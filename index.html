@@ -47,8 +47,6 @@
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
-            selection-background-color: var(--accent-dark);
-            selection-color: var(--glow-blue);
         }
 
         /* Film Grain Overlay */
@@ -74,7 +72,7 @@
         }
 
         /* ==========================================================================
-           2. CINEMATIC INTRO SEQUENCE (CLASSIFIED FILE)
+           2. CINEMATIC INTRO SEQUENCE
            ========================================================================== */
         #intro-screen {
             position: fixed;
@@ -89,7 +87,7 @@
             justify-content: center;
             align-items: center;
             padding: 20px;
-            transition: opacity 1.5s cubic-bezier(0.77, 0, 0.175, 1), visibility 1.5s;
+            transition: opacity 1.2s cubic-bezier(0.77, 0, 0.175, 1), visibility 1.2s;
         }
 
         #intro-screen.hidden {
@@ -135,7 +133,7 @@
 
         .intro-btn {
             margin-top: 35px;
-            background: linear-gradient(135deg, rgba(24, 52, 74, 0.8), rgba(11, 19, 32, 0.9));
+            background: linear-gradient(135deg, rgba(24, 52, 74, 0.9), rgba(11, 19, 32, 0.95));
             border: 1px solid var(--glow-blue);
             color: var(--text-light);
             font-family: var(--font-en);
@@ -157,12 +155,95 @@
         .intro-btn:hover {
             background: var(--glow-blue);
             color: var(--bg-void);
-            box-shadow: 0 0 35px rgba(121, 167, 211, 0.6);
+            box-shadow: 0 0 35px rgba(121, 167, 211, 0.7);
         }
 
         /* ==========================================================================
-           3. BACKGROUND CANVASES & LAYERS
+           3. FLOATING SUPERNATURAL SIGILS & ELEMENTS (معلق در اطراف سایت)
            ========================================================================== */
+        .floating-elements-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 4;
+            overflow: hidden;
+        }
+
+        .floating-sigil {
+            position: absolute;
+            opacity: 0.22;
+            filter: drop-shadow(0 0 10px var(--glow-blue));
+            animation: floatSlow 18s ease-in-out infinite alternate;
+        }
+
+        .floating-sigil.sigil-1 {
+            top: 12%;
+            left: 4%;
+            width: 90px;
+            animation-duration: 22s;
+            animation-name: floatSigil1;
+        }
+
+        .floating-sigil.sigil-2 {
+            top: 45%;
+            right: 3%;
+            width: 110px;
+            animation-duration: 28s;
+            animation-name: floatSigil2;
+        }
+
+        .floating-sigil.sigil-3 {
+            bottom: 15%;
+            left: 5%;
+            width: 85px;
+            animation-duration: 20s;
+            animation-name: floatSigil3;
+        }
+
+        .floating-sigil.sigil-4 {
+            top: 70%;
+            right: 8%;
+            width: 95px;
+            animation-duration: 25s;
+            animation-name: floatSigil4;
+        }
+
+        .floating-sigil.sigil-5 {
+            top: 25%;
+            right: 5%;
+            width: 75px;
+            animation-duration: 24s;
+            animation-name: floatSigil1;
+        }
+
+        @keyframes floatSigil1 {
+            0% { transform: translate(0, 0) rotate(0deg) scale(1); }
+            50% { transform: translate(30px, 40px) rotate(180deg) scale(1.1); }
+            100% { transform: translate(-20px, 80px) rotate(360deg) scale(0.95); }
+        }
+
+        @keyframes floatSigil2 {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(-40px, -50px) rotate(-120deg); }
+            100% { transform: translate(20px, -90px) rotate(-240deg); }
+        }
+
+        @keyframes floatSigil3 {
+            0% { transform: translate(0, 0) rotate(0deg) scale(0.9); }
+            50% { transform: translate(45px, -35px) rotate(90deg) scale(1.08); }
+            100% { transform: translate(-15px, -70px) rotate(180deg) scale(1); }
+        }
+
+        @keyframes floatSigil4 {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(-35px, 45px) rotate(150deg); }
+            100% { transform: translate(30px, -30px) rotate(300deg); }
+        }
+
+        /* Background Canvases */
         #particleCanvas {
             position: fixed;
             top: 0;
@@ -219,33 +300,49 @@
             top: 20px;
             left: 20px;
             z-index: 100;
-            background: rgba(16, 24, 32, 0.8);
-            border: 1px solid rgba(121, 167, 211, 0.3);
+            background: rgba(16, 24, 32, 0.85);
+            border: 1px solid rgba(121, 167, 211, 0.4);
             backdrop-filter: blur(12px);
-            padding: 8px 16px;
+            padding: 8px 18px;
             border-radius: 30px;
             display: flex;
             align-items: center;
             gap: 12px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8);
+            transition: border-color 0.3s;
+        }
+
+        .audio-dock.playing {
+            border-color: var(--glow-blue);
+            box-shadow: 0 0 18px rgba(121, 167, 211, 0.4);
         }
 
         .audio-btn {
             background: none;
             border: none;
             color: var(--glow-blue);
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: transform 0.2s;
+            transition: transform 0.2s, color 0.2s;
+            width: 24px;
+            height: 24px;
         }
 
-        .audio-btn:hover { transform: scale(1.15); }
+        .audio-btn:hover { transform: scale(1.2); color: #FFF; }
+
+        .audio-status-text {
+            font-family: var(--font-typewriter);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            white-space: nowrap;
+        }
 
         .volume-slider {
-            width: 70px;
+            width: 65px;
             accent-color: var(--glow-blue);
             cursor: pointer;
         }
@@ -265,7 +362,7 @@
         }
 
         /* ==========================================================================
-           6. HERO SECTION UPGRADE
+           6. HERO SECTION (بهینه‌شده برای عکس عریض دسته‌جمعی)
            ========================================================================== */
         .hero-section {
             display: flex;
@@ -277,44 +374,48 @@
 
         .hero-img-container {
             position: relative;
-            width: 270px;
-            height: 270px;
+            width: 100%;
+            max-width: 820px; /* پهنای عالی برای نمایش تمام کاراکترها */
+            aspect-ratio: 16 / 10.2; /* حفظ کامل تناسب عکس اصلی بدون برش */
             margin-bottom: 35px;
+            border-radius: 18px;
         }
 
         .hero-img-container::before {
             content: '';
             position: absolute;
-            inset: -8px;
-            border-radius: 30px;
+            inset: -6px;
+            border-radius: 22px;
             background: linear-gradient(45deg, var(--glow-blue), transparent, var(--accent-dark), var(--glow-blue));
             z-index: -1;
             animation: borderGlow 6s linear infinite;
-            filter: blur(10px);
-            opacity: 0.7;
+            filter: blur(12px);
+            opacity: 0.75;
         }
 
         @keyframes borderGlow {
-            0% { filter: blur(10px) hue-rotate(0deg); }
-            100% { filter: blur(10px) hue-rotate(360deg); }
+            0% { filter: blur(12px) hue-rotate(0deg); }
+            100% { filter: blur(12px) hue-rotate(360deg); }
         }
 
         .hero-img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 24px;
+            object-position: center;
+            border-radius: 18px;
             border: 1px solid rgba(121, 167, 211, 0.4);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.9);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.9);
+            display: block;
         }
 
         .hero-title-main {
             font-family: var(--font-en);
-            font-size: clamp(2.3rem, 5.5vw, 4rem);
+            font-size: clamp(2.2rem, 5.5vw, 4rem);
             font-weight: 900;
             color: #FFFFFF;
             letter-spacing: 3px;
-            text-shadow: 0 0 20px rgba(121, 167, 211, 0.6);
+            text-shadow: 0 0 22px rgba(121, 167, 211, 0.6);
             margin-bottom: 10px;
         }
 
@@ -328,7 +429,7 @@
         }
 
         .hero-quote-box {
-            max-width: 550px;
+            max-width: 650px;
             font-size: clamp(1rem, 2vw, 1.2rem);
             color: var(--text-muted);
             line-height: 1.8;
@@ -603,14 +704,15 @@
         }
 
         /* ==========================================================================
-           12. RESPONSIVE BREAKPOINTS (DOWN TO 360px)
+           12. RESPONSIVE BREAKPOINTS
            ========================================================================== */
         @media (max-width: 768px) {
             .content-container { padding: 40px 15px 80px 15px; gap: 60px; }
-            .hero-img-container { width: 210px; height: 210px; }
+            .hero-img-container { aspect-ratio: 16 / 10.5; }
             .audio-dock { top: 12px; left: 12px; padding: 6px 12px; }
             .volume-slider { width: 50px; }
             .timeline-container { padding-right: 20px; }
+            .floating-sigil { scale: 0.75; }
         }
 
         @media (max-width: 480px) {
@@ -627,6 +729,44 @@
     <!-- Canvas for Energy & Dust Particles -->
     <canvas id="particleCanvas"></canvas>
 
+    <!-- Floating Supernatural Sigils in Background/Viewport (المان‌های معلق سوپرنچرال) -->
+    <div class="floating-elements-container">
+        <!-- Anti-Possession Tattoo Sigil -->
+        <svg class="floating-sigil sigil-1" viewBox="0 0 100 100" fill="none" stroke="#79A7D3" stroke-width="2">
+            <circle cx="50" cy="50" r="45" stroke-dasharray="4 2"/>
+            <polygon points="50,10 61,38 92,38 67,56 76,86 50,68 24,86 33,56 8,38 39,38"/>
+            <circle cx="50" cy="50" r="16" stroke="#4A90E2"/>
+        </svg>
+
+        <!-- Devil's Trap Sigil -->
+        <svg class="floating-sigil sigil-2" viewBox="0 0 100 100" fill="none" stroke="#79A7D3" stroke-width="1.8">
+            <circle cx="50" cy="50" r="46"/>
+            <circle cx="50" cy="50" r="40" stroke-dasharray="6 3"/>
+            <path d="M50 10 L60 40 L90 40 L65 60 L75 90 L50 70 L25 90 L35 60 L10 40 L40 40 Z"/>
+        </svg>
+
+        <!-- Angelic Wings / Grace Sigil -->
+        <svg class="floating-sigil sigil-3" viewBox="0 0 100 100" fill="none" stroke="#79A7D3" stroke-width="1.5">
+            <path d="M50,85 C20,60 5,30 20,15 C35,0 45,25 50,40 C55,25 65,0 80,15 C95,30 80,60 50,85 Z"/>
+            <line x1="50" y1="10" x2="50" y2="90" stroke="#79A7D3" stroke-dasharray="2 2"/>
+        </svg>
+
+        <!-- Enochian Sigil / Angel Blade -->
+        <svg class="floating-sigil sigil-4" viewBox="0 0 100 100" fill="none" stroke="#79A7D3" stroke-width="2">
+            <path d="M50 5 L55 35 L50 95 L45 35 Z"/>
+            <line x1="30" y1="35" x2="70" y2="35"/>
+            <circle cx="50" cy="35" r="8"/>
+        </svg>
+
+        <!-- Dean's Cassette Tape & Impala Plate -->
+        <svg class="floating-sigil sigil-5" viewBox="0 0 100 60" fill="none" stroke="#79A7D3" stroke-width="1.8">
+            <rect x="5" y="5" width="90" height="50" rx="6"/>
+            <circle cx="30" cy="30" r="10"/>
+            <circle cx="70" cy="30" r="10"/>
+            <line x1="30" y1="30" x2="70" y2="30"/>
+        </svg>
+    </div>
+
     <!-- Background Layers -->
     <div class="bg-layer fog-overlay"></div>
     <div class="bg-layer devils-trap-bg">
@@ -638,10 +778,16 @@
     </div>
 
     <!-- AUDIO SYSTEM CONTROL DOCK -->
-    <div class="audio-dock">
+    <div class="audio-dock" id="audioDock">
         <button class="audio-btn" id="audioToggleBtn" title="Play/Pause Ambient Music">▶</button>
-        <input type="range" class="volume-slider" id="volumeSlider" min="0" max="1" step="0.05" value="0.5" title="Volume">
-        <audio id="bgMusic" loop src="Kansas-Carry-on-Wayward-Son-128 (2).mp3"></audio>
+        <span class="audio-status-text" id="audioStatusText">KANSAS - WAYWARD SON</span>
+        <input type="range" class="volume-slider" id="volumeSlider" min="0" max="1" step="0.05" value="0.7" title="Volume">
+        
+        <!-- فایل موزیک با کدگذاری استاندارد نام فایل -->
+        <audio id="bgMusic" loop preload="auto">
+            <source src="Kansas-Carry-on-Wayward-Son-128%20(2).mp3" type="audio/mpeg">
+            <source src="Kansas-Carry-on-Wayward-Son-128 (2).mp3" type="audio/mpeg">
+        </audio>
     </div>
 
     <!-- 1. CINEMATIC INTRO SEQUENCE -->
@@ -659,7 +805,7 @@
         <!-- 2. HERO SECTION -->
         <section class="hero-section">
             <div class="hero-img-container">
-                <img src="IMG_20260803_203808_052.jpg" alt="Sogol" class="hero-img" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'300\' height=\'300\'><rect width=\'100%\' height=\'100%\' fill=\'%23101820\'/><text x=\'50%\' y=\'50%\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'%2379A7D3\'>IMG_20260803_203808_052.jpg</text></svg>';">
+                <img src="IMG_20260803_203808_052.jpg" alt="Sogol Winchester Birthday" class="hero-img" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'800\' height=\'500\'><rect width=\'100%\' height=\'100%\' fill=\'%23101820\'/><text x=\'50%\' y=\'50%\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'%2379A7D3\' font-size=\'20\'>IMG_20260803_203808_052.jpg</text></svg>';">
             </div>
 
             <div class="hero-subtitle-tag">Sogol Winchester Edition</div>
@@ -697,7 +843,7 @@
             </p>
         </section>
 
-        <!-- 4. REASONS LIST SECTION (PRESERVED & ENHANCED) -->
+        <!-- 4. REASONS LIST SECTION -->
         <section class="case-file-card" style="background: rgba(16, 24, 32, 0.65); backdrop-filter: blur(12px);">
             <h2 style="text-align: center; margin-bottom: 30px; font-size: 1.8rem; color: #fff;">
                 ۸ دلیل که دوستت دارم 💙
@@ -810,7 +956,7 @@
     </div>
 
     <!-- ==========================================================================
-       JAVASCRIPT: ALL INTERACTIVE LOGIC & ANIMATIONS
+       JAVASCRIPT: AUDIO ENGINE & ANIMATIONS
        ========================================================================== -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -839,47 +985,64 @@
                     if (charIndex < currentLine.length) {
                         typewriterContainer.innerHTML += currentLine.charAt(charIndex);
                         charIndex++;
-                        setTimeout(typeWriter, 45);
+                        setTimeout(typeWriter, 40);
                     } else {
                         typewriterContainer.innerHTML += "<br>";
                         lineIndex++;
                         charIndex = 0;
-                        setTimeout(typeWriter, 350);
+                        setTimeout(typeWriter, 320);
                     }
                 } else {
                     enterBtn.classList.add('visible');
                 }
             }
 
-            // Start Typewriter
-            setTimeout(typeWriter, 1000);
+            setTimeout(typeWriter, 800);
 
             enterBtn.addEventListener('click', () => {
                 introScreen.classList.add('hidden');
-                // Play music on user click to comply with browser autoplay policies
+                // شروع پخش آهنگ با لود اولیه
                 playAudio();
             });
 
             /* ==========================================================================
-               2. AUDIO SYSTEM ENGINE
+               2. IMPROVED AUDIO SYSTEM ENGINE
                ========================================================================== */
             const bgMusic = document.getElementById('bgMusic');
             const audioToggleBtn = document.getElementById('audioToggleBtn');
             const volumeSlider = document.getElementById('volumeSlider');
+            const audioDock = document.getElementById('audioDock');
+            const audioStatusText = document.getElementById('audioStatusText');
             let isPlaying = false;
+
+            // تنظیم ولوم اولیه
+            bgMusic.volume = volumeSlider.value;
 
             function playAudio() {
                 bgMusic.play().then(() => {
                     isPlaying = true;
                     audioToggleBtn.textContent = '❚❚';
-                }).catch(e => console.log("Audio play prevented:", e));
+                    audioDock.classList.add('playing');
+                    audioStatusText.textContent = 'PLAYING ♫';
+                }).catch(e => {
+                    console.warn("Autoplay block / File path check needed:", e);
+                    audioToggleBtn.textContent = '▶';
+                    audioStatusText.textContent = 'CLICK TO PLAY';
+                    isPlaying = false;
+                });
+            }
+
+            function pauseAudio() {
+                bgMusic.pause();
+                isPlaying = false;
+                audioToggleBtn.textContent = '▶';
+                audioDock.classList.remove('playing');
+                audioStatusText.textContent = 'PAUSED';
             }
 
             audioToggleBtn.addEventListener('click', () => {
                 if (isPlaying) {
-                    bgMusic.pause();
-                    audioToggleBtn.textContent = '▶';
-                    isPlaying = false;
+                    pauseAudio();
                 } else {
                     playAudio();
                 }
@@ -970,7 +1133,7 @@
                         entry.target.classList.add('visible');
                     }
                 });
-            }, { threshold: 0.2 });
+            }, { threshold: 0.18 });
 
             timelineItems.forEach(item => observer.observe(item));
 
